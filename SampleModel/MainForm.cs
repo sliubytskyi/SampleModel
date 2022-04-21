@@ -13,27 +13,24 @@ namespace SampleModel
 {
     public partial class MainForm : Form
     {
-        private Tank Block;
-        private LimitBlock xLimit = new LimitBlock(0,100);
-        private double y;
-        private double x1;
-        private double x2;
-        private double time = 0;
+        private ControlSystem system;
+       
+        
         private double dt = 0.1;
 
         public MainForm() {
             InitializeComponent();
-            Block = new Tank(dt);
+            system = new ControlSystem(dt);
         }
 
 
         private void tmModel_Tick(object sender, EventArgs e) {
-            y = Block.Calc(x1,x2);
-            time += dt; 
-            lbY.Text = y.ToString("F2");
-            chMainPlot.Series[0].Points.AddXY(time,y);
-            chMainPlot.Series[1].Points.AddXY(time, x1);
-            chMainPlot.Series[2].Points.AddXY(time, x2);
+            system.Calc();
+          
+            lbY.Text = system.Output.ToString("F2");
+            chMainPlot.Series[0].Points.AddXY(system.Time, system.Output);
+            chMainPlot.Series[1].Points.AddXY(system.Time, system.Input1);
+            chMainPlot.Series[2].Points.AddXY(system.Time, system.Input2);
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
@@ -45,15 +42,13 @@ namespace SampleModel
         }
 
         private void btnUp_Click(object sender, EventArgs e) {
-            x1 += 1;
-            x1 = xLimit.Calc(x1);
-            tbX.Text = x1.ToString("F2");
+            system.Input1 += 1;
+            tbX.Text = system.Input1.ToString("F2");
         }
 
         private void btnDn_Click(object sender, EventArgs e) {
-            x1 -= 1;
-            x1 = xLimit.Calc(x1); 
-            tbX.Text = x1.ToString("F2");
+            system.Input1 -= 1;
+            tbX.Text = system.Input1.ToString("F2");
         }
 
         private void btnX1_Click(object sender, EventArgs e) {
@@ -69,15 +64,60 @@ namespace SampleModel
         }
 
         private void btnDn2_Click(object sender, EventArgs e) {
-            x2 -= 1;
-            x2 = xLimit.Calc(x2);
-            tbX2.Text = x2.ToString("F2");
+            system.Input2 -= 1;
+            tbX2.Text = system.Input2.ToString("F2");
         }
 
         private void btnUp2_Click(object sender, EventArgs e) {
-            x2 += 1;
-            x2 = xLimit.Calc(x2);
-            tbX2.Text = x2.ToString("F2");
+            system.Input2 += 1;
+            tbX2.Text = system.Input2.ToString("F2");
+        }
+
+        private void btnSPDn_Click(object sender, EventArgs e) {
+            system.SetPoint -= 1;
+            tbSetpoint.Text = system.SetPoint.ToString("F2");
+        }
+
+        private void btnSPUp_Click(object sender, EventArgs e) {
+            system.SetPoint += 1;
+            tbSetpoint.Text = system.SetPoint.ToString("F2");
+        }
+
+        private void btnKDn_Click(object sender, EventArgs e) {
+            system.K -= 1;
+            tbK.Text = system.K.ToString("F2");
+        }
+
+        private void btnKUp_Click(object sender, EventArgs e) {
+            system.K += 1;
+            tbK.Text = system.K.ToString("F2");
+        }
+
+        private void btnTiDn_Click(object sender, EventArgs e) {
+            system.Ti -= 1;
+            tbTi.Text = system.Ti.ToString("F2");
+        }
+
+        private void btnTiUp_Click(object sender, EventArgs e) {
+            system.Ti += 1;
+            tbTi.Text = system.Ti.ToString("F2");
+        }
+
+        private void btnTdDn_Click(object sender, EventArgs e) {
+            system.Td -= 1;
+            tbTd.Text = system.Td.ToString("F2");
+        }
+
+        private void btnTdUp_Click(object sender, EventArgs e) {
+            system.Td += 1;
+            tbTd.Text = system.Td.ToString("F2");
+        }
+
+        private void tbTi_TextChanged(object sender, EventArgs e) {
+            double val = 0;
+            if(Double.TryParse(tbTi.Text, out val)) {
+                system.Ti = val;
+            }
         }
     }
 }

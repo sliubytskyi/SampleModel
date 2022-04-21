@@ -56,6 +56,8 @@
     <Compile Include="Blocks\IntBlock.cs" />
     <Compile Include="Blocks\LimitBlock.cs" />
     <Compile Include="Blocks\NoiseBlock.cs" />
+    <Compile Include="Blocks\PIDBlock.cs" />
+    <Compile Include="ControlSystem.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
