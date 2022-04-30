@@ -20,8 +20,7 @@ namespace SampleModel
             kx2 = new GainBlock(-1);
             
             Block = new ComplexBlock();
-
-            Block.Add(new IntBlock(dt));
+            Block.Add(new LimitedIntBlock(dt,0,10));
         }
 
         public double Calc(double x1, double x2) {

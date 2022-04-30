@@ -26,11 +26,14 @@ namespace SampleModel
 
         private void tmModel_Tick(object sender, EventArgs e) {
             system.Calc();
-          
+            //
+            DisplayInputValues();
             lbY.Text = system.Output.ToString("F2");
+            //
             chMainPlot.Series[0].Points.AddXY(system.Time, system.Output);
             chMainPlot.Series[1].Points.AddXY(system.Time, system.Input1);
             chMainPlot.Series[2].Points.AddXY(system.Time, system.Input2);
+            chMainPlot.Series[3].Points.AddXY(system.Time, system.U);
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
@@ -110,7 +113,7 @@ namespace SampleModel
 
         private void btnTdUp_Click(object sender, EventArgs e) {
             system.Td += 1;
-            tbTd.Text = system.Td.ToString("F2");
+            
         }
 
         private void tbTi_TextChanged(object sender, EventArgs e) {
@@ -118,6 +121,36 @@ namespace SampleModel
             if(Double.TryParse(tbTi.Text, out val)) {
                 system.Ti = val;
             }
+        }
+
+        private void btnAuto_Click(object sender, EventArgs e) {
+            system.ManualMode = !system.ManualMode;
+            DisplayManualMode();
+        }
+
+        private void DisplayManualMode() {
+            btnAuto.Text = system.ManualMode ? "Manual" : "Auto";
+            btnDn.Enabled = system.ManualMode;
+            btnUp.Enabled = system.ManualMode;
+            tbX.Enabled = system.ManualMode;
+        }
+
+        private void DisplayPIDValues() {
+            tbSetpoint.Text = system.SetPoint.ToString("F2");
+            tbK.Text = system.K.ToString("F2");
+            tbTi.Text = system.Ti.ToString("F2");
+            tbTd.Text = system.Td.ToString("F2");
+            DisplayInputValues();
+        }
+
+        private void DisplayInputValues() {
+            tbX.Text = system.Input1.ToString("F2");
+            tbX2.Text = system.Input2.ToString("F2");
+        }
+
+        private void MainForm_Load(object sender, EventArgs e) {
+            DisplayManualMode();
+            DisplayPIDValues();
         }
     }
 }

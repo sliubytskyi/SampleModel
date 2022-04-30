@@ -15,11 +15,14 @@ namespace SampleModel
         private LimitBlock xLimit = new LimitBlock(0, 100);
         private LimitBlock levelLimit = new LimitBlock(0, 10);
         public double Time { get; set; } = 0;
+        public bool ManualMode { get { return PID.ManualMode; } set { PID.ManualMode = value; } }
         //
         private double input1;
         private double input2;
         public double Input1 { get { return input1; } set { input1 = xLimit.Calc(value); } }
         public double Input2 { get { return input2; } set { input2 = xLimit.Calc(value); } }
+
+        public double U { get { return PID.U; } set { PID.U = value; } }
 
         private double setPoint;
         public double SetPoint { get { return setPoint; } set { setPoint = levelLimit.Calc(value); } }
@@ -42,7 +45,12 @@ namespace SampleModel
             Output = Tank.Calc(Input1, Input2);
             var e = SetPoint - Output;
             var u = PID.Calc(e);
-            Input1 = u;
+            if (!ManualMode) {
+                Input1 = u;
+            }
+            else {
+                PID.Umanual = Input1;
+            }
             Time += dt;
         }
     }

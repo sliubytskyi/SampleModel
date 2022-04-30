@@ -8,13 +8,19 @@ namespace SampleModel.Blocks
 {
     public class PIDBlock : BaseBlock
     {
-        private GainBlock Gain;
-        private IntBlock Int;
-        private DiffBlock Diff;
-
         private double ki = 0.000001;
+        private double prevX = 0;
+        private double dt;
+        private double intSum = 0;
 
-        public double K { get { return Gain.Gain; } set { Gain.Gain = value; } }
+        public double UpLimit { get; set; } = 100;
+        public double DownLimit { get; set; } = 0;
+
+        public bool ManualMode { get; set; } = false;
+        public double Umanual { get; set; }
+        public double U { get; set; }
+
+        public double K { get; set; } = 1;
         public double Ti { 
             get { return 1 / ki; } 
             set { if (value == 0) ki = double.MaxValue;
@@ -22,17 +28,35 @@ namespace SampleModel.Blocks
             }  
         }
         public double Ki { get { return ki; } set { ki = value; }  }
-        public double Td { get; set; }
+        public double Td { get; set; } = 0;
 
         public PIDBlock(double dt) {
-            Gain = new GainBlock(1);
-            Int = new IntBlock(dt);
-            Diff = new DiffBlock(dt);
+            this.dt = dt;
         }
 
         public override double Calc(double x) {
-            var u = Gain.Calc(x) + ki * Int.Calc(x) + Td * Diff.Calc(x);
-            return u;
+            if (ManualMode) {
+                intSum = (Umanual - K * x - Td * (x - prevX) / dt) / ki;
+            }
+            else {
+                intSum += (prevX + x) * dt / 2;
+            }
+            var u = K * x + ki * intSum + Td * (x - prevX) / dt;
+            var limited = false;
+            if (u > UpLimit) {
+                u = UpLimit;
+                limited = true;
+            }
+            if (u < DownLimit) {
+                u = DownLimit;
+                limited = true;
+            }
+            if (ki != 0 && limited) {
+                intSum = (u - K * x - Td * (x - prevX) / dt) / ki;
+            }
+            prevX = x;
+            U = u;
+            return U;
         }
     }
 }

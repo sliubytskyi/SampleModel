@@ -26,11 +26,12 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -65,6 +66,7 @@
             this.btnTdDn = new System.Windows.Forms.Button();
             this.btnTdUp = new System.Windows.Forms.Button();
             this.tbTd = new System.Windows.Forms.TextBox();
+            this.btnAuto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chMainPlot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -123,30 +125,36 @@
             this.chMainPlot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea8.Name = "chMainArea";
-            this.chMainPlot.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chMainPlot.Legends.Add(legend8);
+            chartArea1.Name = "chMainArea";
+            this.chMainPlot.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chMainPlot.Legends.Add(legend1);
             this.chMainPlot.Location = new System.Drawing.Point(12, 258);
             this.chMainPlot.Name = "chMainPlot";
-            series22.ChartArea = "chMainArea";
-            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series22.Legend = "Legend1";
-            series22.LegendText = "Y";
-            series22.Name = "seriesY";
-            series23.ChartArea = "chMainArea";
-            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series23.Legend = "Legend1";
-            series23.LegendText = "X1";
-            series23.Name = "seriesX";
-            series24.ChartArea = "chMainArea";
-            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series24.Legend = "Legend1";
-            series24.LegendText = "X2";
-            series24.Name = "seriesX2";
-            this.chMainPlot.Series.Add(series22);
-            this.chMainPlot.Series.Add(series23);
-            this.chMainPlot.Series.Add(series24);
+            series1.ChartArea = "chMainArea";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.LegendText = "Y";
+            series1.Name = "seriesY";
+            series2.ChartArea = "chMainArea";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.LegendText = "X1";
+            series2.Name = "seriesX";
+            series3.ChartArea = "chMainArea";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.LegendText = "X2";
+            series3.Name = "seriesX2";
+            series4.ChartArea = "chMainArea";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.LegendText = "U";
+            series4.Name = "SeriesU";
+            this.chMainPlot.Series.Add(series1);
+            this.chMainPlot.Series.Add(series2);
+            this.chMainPlot.Series.Add(series3);
+            this.chMainPlot.Series.Add(series4);
             this.chMainPlot.Size = new System.Drawing.Size(1012, 372);
             this.chMainPlot.TabIndex = 5;
             // 
@@ -396,11 +404,22 @@
             this.tbTd.Size = new System.Drawing.Size(63, 22);
             this.tbTd.TabIndex = 29;
             // 
+            // btnAuto
+            // 
+            this.btnAuto.Location = new System.Drawing.Point(244, 95);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(130, 23);
+            this.btnAuto.TabIndex = 33;
+            this.btnAuto.Text = "Auto";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 671);
+            this.Controls.Add(this.btnAuto);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnTdDn);
             this.Controls.Add(this.btnTdUp);
@@ -435,6 +454,7 @@
             this.Controls.Add(this.btnStop);
             this.Name = "MainForm";
             this.Text = "Sample model";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chMainPlot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -477,6 +497,7 @@
         private System.Windows.Forms.Button btnTdDn;
         private System.Windows.Forms.Button btnTdUp;
         private System.Windows.Forms.TextBox tbTd;
+        private System.Windows.Forms.Button btnAuto;
     }
 }
 
