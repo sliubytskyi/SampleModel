@@ -10,7 +10,8 @@ namespace SampleModel
     public class ControlSystem
     {
         private double dt;
-        private PIDBlock PID;
+        public PIDBlock PID;
+        public double E;
         private Tank Tank;
         private LimitBlock xLimit = new LimitBlock(0, 100);
         private LimitBlock levelLimit = new LimitBlock(0, 10);
@@ -40,11 +41,10 @@ namespace SampleModel
             Tank = new Tank(dt);
         }
 
-
         public void Calc() {
             Output = Tank.Calc(Input1, Input2);
-            var e = SetPoint - Output;
-            var u = PID.Calc(e);
+            E = SetPoint - Output;
+            var u = PID.Calc(E);
             if (!ManualMode) {
                 Input1 = u;
             }

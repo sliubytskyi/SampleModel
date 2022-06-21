@@ -152,5 +152,31 @@ namespace SampleModel
             DisplayManualMode();
             DisplayPIDValues();
         }
+
+        public void ShowProcess(double[] vars, int series) {
+            var maxTime = Criteria.maxTime;
+            ControlSystem sys = new ControlSystem(dt);
+            sys.PID.K = vars[0];
+            sys.PID.Ti = vars[1];
+            sys.PID.Td = vars[2];
+            sys.SetPoint = 1;
+            var stepCnt = (int)(maxTime / dt);
+            chMainPlot.Series[series].Points.Clear();
+            for (int i = 0; i < stepCnt; i++) {
+
+                chMainPlot.Series[series].Points.AddXY(sys.Time, sys.Output);
+                sys.Calc();
+            }
+        }
+        private void btnOptimize_Click(object sender, EventArgs e) {
+            double[] p = { 1, 100, 0 }; // початкові параметри
+            var I1 = Criteria.I2Criteria(p);
+            ShowProcess(p, 4);
+            var steps =  Optimization.HookeJeeves(Criteria.I2Criteria, ref p);
+            ShowProcess(p, 5);
+            var I2 = Criteria.I2Criteria(p);
+            Optimization.PrintPoint(p);
+            MessageBox.Show(Optimization.PointToString(p) + $"\n I1={I1} I2={I2} steps={steps}");
+        }
     }
 }

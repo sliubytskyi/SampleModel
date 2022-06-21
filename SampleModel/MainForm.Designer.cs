@@ -32,6 +32,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -67,6 +69,7 @@
             this.btnTdUp = new System.Windows.Forms.Button();
             this.tbTd = new System.Windows.Forms.TextBox();
             this.btnAuto = new System.Windows.Forms.Button();
+            this.btnOptimize = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chMainPlot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -151,10 +154,20 @@
             series4.Legend = "Legend1";
             series4.LegendText = "U";
             series4.Name = "SeriesU";
+            series5.ChartArea = "chMainArea";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Before";
+            series6.ChartArea = "chMainArea";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "After";
             this.chMainPlot.Series.Add(series1);
             this.chMainPlot.Series.Add(series2);
             this.chMainPlot.Series.Add(series3);
             this.chMainPlot.Series.Add(series4);
+            this.chMainPlot.Series.Add(series5);
+            this.chMainPlot.Series.Add(series6);
             this.chMainPlot.Size = new System.Drawing.Size(1012, 372);
             this.chMainPlot.TabIndex = 5;
             // 
@@ -414,11 +427,22 @@
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
+            // btnOptimize
+            // 
+            this.btnOptimize.Location = new System.Drawing.Point(244, 206);
+            this.btnOptimize.Name = "btnOptimize";
+            this.btnOptimize.Size = new System.Drawing.Size(130, 31);
+            this.btnOptimize.TabIndex = 34;
+            this.btnOptimize.Text = "Optimize";
+            this.btnOptimize.UseVisualStyleBackColor = true;
+            this.btnOptimize.Click += new System.EventHandler(this.btnOptimize_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 671);
+            this.Controls.Add(this.btnOptimize);
             this.Controls.Add(this.btnAuto);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnTdDn);
@@ -498,6 +522,7 @@
         private System.Windows.Forms.Button btnTdUp;
         private System.Windows.Forms.TextBox tbTd;
         private System.Windows.Forms.Button btnAuto;
+        private System.Windows.Forms.Button btnOptimize;
     }
 }
 
